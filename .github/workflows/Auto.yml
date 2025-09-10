@@ -1,0 +1,20 @@
+      - name: Renovar workflow automaticamente
+        if: always()
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          $headers = @{
+            Authorization = "Bearer $env:PAT_TOKEN"
+            Accept = "application/vnd.github.v3+json"
+          }
+
+          $body = @{
+            ref = "${{ github.ref }}"
+          } | ConvertTo-Json
+
+          # Atenção: ajuste o nome do workflow YML exatamente como está no repositório
+          $url = "https://api.github.com/repos/${{ github.repository }}/actions/workflows/main.yml/dispatches"
+
+          Invoke-RestMethod -Method POST -Uri $url -Headers $headers -Body $body
+
+          Write-Host "✅ Novo workflow iniciado para renovar a VM."
