@@ -60,7 +60,7 @@ jobs:
       - name: Install Tailscale
         shell: pwsh
         run: |
-          $tsUrl = "https://pkgs.tailscale.com/stable/tailscale-setup-1.82.0-amd64.msi"
+          $tsUrl = "https://pkgs.tailscale.com/stable/tailscale-setup-1.98.9-amd64.msi"
           $installerPath = Join-Path $env:TEMP "tailscale.msi"
 
           Write-Host "Download URL: $tsUrl"
